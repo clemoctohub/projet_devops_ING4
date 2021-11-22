@@ -36,14 +36,15 @@ jobs:
         cache-dependency-path: '**/package-lock.json'
     - run: npm ci
     - run: npm test
-    - name: Connect to Redis
-        # Runs a script that creates a Redis client, populates
-        # the client with data, and retrieves data
-        run: node client.js
-        # Environment variable used by the `client.js` script to create
-        # a new Redis client.
-        env:
-          # The hostname used to communicate with the Redis service container
-          REDIS_HOST: localhost
-          # The default Redis port
-          REDIS_PORT: 6379
+    deploy:
+    needs: test # Requires CI part to be succesfully completed
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      # Read instructions how to configure this action: https://github.com/marketplace/actions/deploy-to-heroku#getting-started
+      - uses: akhileshns/heroku-deploy@v3.12.12 # This is the action
+        with:
+          heroku_api_key: ${{secrets.HEROKU_API_KEY}}
+          heroku_app_name: "YOUR APP's NAME" # Must be unique in Heroku
+          heroku_email: "YOUR EMAIL" # Heroku account email
+          appdir: userapi # Define appdir if you application is in a subfolder
