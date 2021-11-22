@@ -44,7 +44,7 @@ module.exports = {
     }
     db.hgetall(user.username,function(err,res){
       if (err) return callback(err, null)
-      if (!res) {
+      if (res!=null) {
         // Save to DB
         db.hmset(user.username, userObj, (err, res) => {
           if (err) return callback(err, null)
