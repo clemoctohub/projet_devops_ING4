@@ -84,7 +84,7 @@ describe('User REST API', () => {
       })
     })
     
-    it('can not get a user when it does not exis', (done) => {
+    it('can not get a user when it does not exist', (done) => {
       chai.request(app)
         .get('/user/invalid')
         .then((res) => {
