@@ -10,12 +10,28 @@ db.on("error", (err) => {
   console.error(err)
 })
 
+function get_hit_count(callback) {
+  db.incr('hits', () => {
+    db.get('hits', (err, res) => {
+      if(err)
+        console.log(err)
+      else
+        console.log(res)
+      callback(res)
+    })
+  });
+}
+
 app.use(bodyParser.urlencoded({
   extended: false
 }))
 app.use(bodyParser.json())
 
-app.get('/', (req, res) => res.send('Hello World!'))
+app.get('/', (req, res) => {
+  get_hit_count((count) => {
+    res.send('Hello World from Docker! I have been seen ' + count + ' times');
+  })
+})
 
 app.use('/user', userRouter)
 
