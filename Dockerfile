@@ -2,12 +2,12 @@ FROM node:16
 
 WORKDIR /app
 
-COPY userapi/package*.json ./
+COPY /userapi/package*.json ./
 
 RUN npm install
 
-COPY userapi .
+COPY /userapi .
 
-EXPOSE 8080
+EXPOSE 3000
 
 CMD [ "npm", "start" ]

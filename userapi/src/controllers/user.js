@@ -34,5 +34,41 @@ module.exports = {
       else
         callback(new Error("User doesn't exists"), null)
     })
+  },
+  update: (user, callback) =>{
+    if(!user)
+      return callback(new Error("No user"),null)
+    const userObj = {
+      firstname: user.firstname,
+      lastname: user.lastname,
+    }
+    db.hgetall(user.username,function(err,res){
+      if (err) return callback(err, null)
+      if (res!=null) {
+        // Save to DB
+        db.hmset(user.username, userObj, (err, res) => {
+          if (err) return callback(err, null)
+          callback(null, res) // Return callback
+        })
+      } else {
+        callback(new Error("User already exists"), null)
+      }
+    })
+  },
+  delete: (username, callback) =>{
+    if(!username)
+      return callback(new Error("No user"),null)
+    db.hgetall(username,function(err,res){
+      if (err) return callback(err, null)
+      if (res!=null) {
+        // Save to DB
+        db.del(username, (err, res) => {
+          if (err) return callback(err, null)
+          callback(null, res) // Return callback
+        })
+      } else {
+        callback(new Error("User doesn't exists"), null)
+      }
+    })
   }
 }

@@ -84,7 +84,7 @@ describe('User REST API', () => {
       })
     })
     
-    it('can not get a user when it does not exis', (done) => {
+    it('can not get a user when it does not exist', (done) => {
       chai.request(app)
         .get('/user/invalid')
         .then((res) => {
@@ -96,6 +96,104 @@ describe('User REST API', () => {
         .catch((err) => {
            done(err)
         })
+    })
+  })
+
+  describe('DELETE /user', () => {
+    it('delete an existing user', (done) => {
+      const user = {
+        username: 'sergkudinov',
+        firstname: 'Sergei',
+        lastname: 'Kudinov'
+      }
+      // Create a user
+      userController.create(user, () => {
+        // Get the user
+        chai.request(app)
+          .delete('/user/' + user.username)
+          .then((res) => {
+            chai.expect(res).to.have.status(200)
+            chai.expect(res.body.status).to.equal('success')
+            chai.expect(res).to.be.json
+            done()
+          })
+          .catch((err) => {
+             done(err)
+          })
+      })
+    })
+    
+    it('cannot delete if pass wrong parameters', (done) => {
+      const user = {
+        username:'sergeiii',
+        firstname: 'Sergei',
+        lastname: 'Kudinov'
+      }
+      userController.create(user, () => {
+        // Get the user
+        chai.request(app)
+        .delete('/user/'+'serg')
+        .then((res) => {
+          chai.expect(res).to.have.status(400)
+          chai.expect(res.body.status).to.equal('error')
+          chai.expect(res).to.be.json
+          done()
+        })
+        .catch((err) => {
+           done(err)
+        })
+      })
+    })
+  })
+
+  describe('PUT /user', () => {
+    it('update an existing user', (done) => {
+      const user = {
+        username: 'sergkudinov',
+        firstname: 'Sergei',
+        lastname: 'Kudinov'
+      }
+      // Create a user
+      userController.create(user, () => {
+        // Get the user
+        user.firstname = 'Serg'
+        chai.request(app)
+          .put('/user')
+          .send(user)
+          .then((res) => {
+            chai.expect(res).to.have.status(201)
+            chai.expect(res.body.status).to.equal('success')
+            chai.expect(res).to.be.json
+            done()
+          })
+          .catch((err) => {
+             done(err)
+          })
+      })
+    })
+    
+    it('cannot update if pass wrong parameters', (done) => {
+      const user = {
+        username:'sergeiii',
+        firstname: 'Sergei',
+        lastname: 'Kudinov'
+      }
+      userController.create(user, () => {
+        // Get the user
+        user.username='serg'
+        chai.request(app)
+        .put('/user')
+        .send(user)
+        .then((res) => {
+          chai.expect(res).to.have.status(400)
+          chai.expect(res.body.status).to.equal('error')
+          chai.expect(res).to.be.json
+          done()
+        })
+        .catch((err) => {
+           done(err)
+        })
+      })
     })
   })
 })
