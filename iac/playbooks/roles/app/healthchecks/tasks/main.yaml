@@ -1,0 +1,20 @@
+---
+- name: Check Redis health
+  command: redis-cli ping
+  register: redis_health
+
+- name: Check node & npm versions
+  command: node --version && npm --versio 
+  register: runtime_version
+
+- name: Check health app
+  command: "curl http://localhost:3000"
+  register: app_health
+
+- name: Print Services health
+  - debug:
+    msg: "{{ redis_health.content }}"
+  - debug:
+    msg: "{{ runtime_version.content }}"
+  - debug:
+    msg: "{{ app_health.content }}"

@@ -1,1 +1,0 @@
-{"rsync":{"/vagrant":{"type":"rsync","guestpath":"/vagrant","hostpath":"C:/Users/clemf/Documents/GitHub/projet_devops_ING4/iac","disabled":false,"__vagrantfile":true,"owner":"vagrant","group":"vagrant"}}}

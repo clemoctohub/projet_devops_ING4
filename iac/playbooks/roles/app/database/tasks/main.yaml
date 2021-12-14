@@ -1,0 +1,6 @@
+---
+- name: Update
+  apt: update_cache=yes upgrade=yes   
+
+- name: Installing Redis
+  apt: name=redis-server state=latest

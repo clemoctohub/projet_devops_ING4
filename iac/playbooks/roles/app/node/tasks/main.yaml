@@ -1,0 +1,22 @@
+---
+- name: "Install curl"
+  become: true
+  apt:
+    update_cache: yes
+    name: curl
+    state: present
+
+- name: "Get node repo"
+  become: true
+  shell: curl -L https://raw.githubusercontent.com/tj/n/master/bin/n -o n
+
+- name: "N LTS"
+  become: true
+  shell: bash n lts
+    
+- name: "Install node"
+  become: true
+  shell: npm install -g n
+
+- name: 'Upgrade npm'
+  shell: npm install -g npm@8.3.0 
