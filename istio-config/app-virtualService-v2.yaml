@@ -13,4 +13,9 @@ spec:
     route:
     - destination:
         host: project-devops-app
+        subset: v2
+  - route:
+    - destination:
+        host: project-devops-app
         subset: v1
+    
