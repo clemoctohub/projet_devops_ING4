@@ -3,18 +3,17 @@
   command: redis-cli ping
   register: redis_health
 
-- name: Check node & npm versions
-  command: node --version && npm --versio 
-  register: runtime_version
+- name: Print Redis health
+  debug:
+    msg: "{{ redis_health.stdout }}"
 
-- name: Check health app
-  command: "curl http://localhost:3000"
-  register: app_health
+- name: Run test app
+  command: npm test
+  args:
+    chdir: /srv/website
+  register: test_health
 
-- name: Print Services health
-  - debug:
-    msg: "{{ redis_health.content }}"
-  - debug:
-    msg: "{{ runtime_version.content }}"
-  - debug:
-    msg: "{{ app_health.content }}"
+- name: Print test healthchecks
+  debug:
+    msg: "{{ test_health.stdout }}"
+

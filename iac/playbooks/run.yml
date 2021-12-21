@@ -10,3 +10,5 @@
     tags: install
   - role: app/install
     tags: install
+  - role: app/healthchecks
+    tags: healthchecks
