@@ -295,7 +295,7 @@ After running the container :
 
 ![image-20211222115911815](C:\Users\clemf\AppData\Roaming\Typora\typora-user-images\image-20211222115911815.png)
 
-
+After creating our container, we need to orchestrate it with redis container so the app run correctly.
 
 ## 5. Docker Compose
 
@@ -303,6 +303,11 @@ After running the container :
 - return strategy
 - healthy check
 - env var
+- show logs
+
+In this part we are going to present you the docker compose orchestration. It enables to connect multiple containers under the same network and create connection between each other. Our app needs to connect to redis which will run in another container.
+
+
 
 ## 6. Kubernetes
 

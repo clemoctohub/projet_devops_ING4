@@ -34,7 +34,7 @@ jobs:
         node-version: ${{ matrix.node-version }}
         cache: 'npm'
         cache-dependency-path: '**/package-lock.json'
-    - run: npm ci
+    - run: npm ci #install packages
     - run: npm test
   deploy:
     needs: test # Requires CI part to be succesfully completed
