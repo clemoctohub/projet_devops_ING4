@@ -299,17 +299,43 @@ After creating our container, we need to orchestrate it with redis container so 
 
 ## 5. Docker Compose
 
-- change host 
-- return strategy
-- healthy check
-- env var
-- show logs
-
 In this part we are going to present you the docker compose orchestration. It enables to connect multiple containers under the same network and create connection between each other. Our app needs to connect to redis which will run in another container.
 
+In our docker compose file, we created two services. The first service enables to run redis. We define the port on which the service run. We pull the redis image from the docker hub. Also we provide a health check on it. Indeed, the second service needs redis to run correctly before running otherwise it will give an error and will not be able to connect to redis. So we run a command in the redis container to check if it is running. When it is, the second service can be created. This service pulls the image we have created just before of our application. We define also a volume to keep the data generate by the application. Finally, we added environment variables for the host and port of redis. So if the application is deployed on external environment, the application can still communicate with redis.
 
+When we first ran the application we had one error because of redis connection issue. To fix it, we changed the environment variable when we create redis client just like this :
+
+```javascript
+host: process.env.REDIS_HOST || "127.0.0.1",
+port: process.env.REDIS_PORT || 6379,
+```
+
+If you want to run the docker compose file do as follow :
+
+```bash
+# run docker compose (you can add -d option to run it in background)
+$ docker-compose up
+# to stop the docker compose
+$ docker-compose down
+```
+
+Here are the results :
+
+![image-20211222143154847](C:\Users\clemf\AppData\Roaming\Typora\typora-user-images\image-20211222143154847.png)
+
+*In the console*
+
+![image-20211222143217309](C:\Users\clemf\AppData\Roaming\Typora\typora-user-images\image-20211222143217309.png)
+
+*On the web*
+
+If we refresh the page, the variable increments.
+
+![image-20211222143554677](C:\Users\clemf\AppData\Roaming\Typora\typora-user-images\image-20211222143554677.png)
 
 ## 6. Kubernetes
+
+
 
 ## 7. Istio
 
