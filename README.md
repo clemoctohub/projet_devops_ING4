@@ -2,9 +2,9 @@
 
 ##### *Authors : Clément Fages & Anne-Charlotte Vignon*
 
-
-
 This repository contains a description of the features we have done for the project. Screenshots and explication are provide for each feature. We will also provide instructions to run the different applications (eg. k8s, docker or vagrant file).
+
+[TOC]
 
 * Clone this repository, from your local machine:
   ```bash
@@ -301,7 +301,9 @@ After creating our container, we need to orchestrate it with redis container so 
 
 In this part we are going to present you the docker compose orchestration. It enables to connect multiple containers under the same network and create connection between each other. Our app needs to connect to redis which will run in another container.
 
-In our docker compose file, we created two services. The first service enables to run redis. We define the port on which the service run. We pull the redis image from the docker hub. Also we provide a health check on it. Indeed, the second service needs redis to run correctly before running otherwise it will give an error and will not be able to connect to redis. So we run a command in the redis container to check if it is running. When it is, the second service can be created. This service pulls the image we have created just before of our application. We define also a volume to keep the data generate by the application. Finally, we added environment variables for the host and port of redis. So if the application is deployed on external environment, the application can still communicate with redis.
+In our docker compose file, we created two services. The first service enables to run redis. We define the port on which the service run. We pull the redis image from the docker hub. We added a volume to store data. Also we provide a health check on it. Indeed, the second service needs redis to run correctly before running otherwise it will give an error and will not be able to connect to redis. So we run a command in the redis container to check if it is running. When it is, the second service can be created. 
+
+This second service pulls the image we have created just before of our application. We define also a volume to keep the data generate by the application. Finally, we added environment variables for the host and port of redis. So if the application is deployed on external environment, the application can still communicate with redis.
 
 When we first ran the application we had one error because of redis connection issue. To fix it, we changed the environment variable when we create redis client just like this :
 
@@ -329,13 +331,62 @@ Here are the results :
 
 *On the web*
 
-If we refresh the page, the variable increments.
+If we refresh the page, the variable increments because data is stored.
 
 ![image-20211222143554677](C:\Users\clemf\AppData\Roaming\Typora\typora-user-images\image-20211222143554677.png)
 
 ## 6. Kubernetes
 
+In this part we are going to use Kubernetes to make container orchestration.
 
+To make our app running under kubernetes, we have to create two services covering two different deployments.
+
+The first deployment concerns redis. We create one pod under this deployment and we define the container running in it. It is a container that pulls the redis image. We also define a volume with this deployment to persist redis data but we will talk about the volumes just after. Once we declare the deployment with the port of the container.. we define a service linked to this deployment.
+
+The second deployment will deploy our application. We do the same thing as we did for the first deployment but we don't persist volumes and we took our image to run it under the deployment. We define environment variables so we can expose our deployment on external services. Then we create our service.
+
+We just created two services : one for the database (redis) and one for our API (userapi).
+
+To store redis data we use persistent volumes. This volume will be stored in Minikube (in the master cluster). To create this volume we use our persistent volume file (you can check it on our repository). Then we made a file to claim for persistent volume (this is the persistent volume claim) and link it to our application (here redis). So if our pod crash or whatever, the data will be still stored and put back on the pod once it is regenerated.
+
+To run the different files you can do as follow :
+
+```bash
+# go to k8s
+$ cd k8s
+# create persistent volume
+$ kubectl apply -f PVolume.yaml
+# create persistent volume claim
+$ kubectl apply -f PVClaim.yaml
+# create redis service
+$ kubectl apply -f redis.yaml
+# create api service
+$ kubectl apply -f service.yaml
+```
+
+Once done, we have the following results :
+
+![unknown.png (1338×145)](https://cdn.discordapp.com/attachments/703532874997170256/922819679544823838/unknown.png)
+
+*Persistent volume and persistent volume claim linked*.
+
+![image-20211222153349579](C:\Users\clemf\AppData\Roaming\Typora\typora-user-images\image-20211222153349579.png)
+
+*Get logs of pods to see if there are running correctly.*
+
+To finish on Kubernetes, we had a problem to connect API pod to redis pod because of the retry strategy. There was no retry strategy so when the pod started it couldn't connect to redis and didn't retry the connection. We change the retry strategy, that's why now there is no more connection issue.
+
+```javascript
+retry_strategy: (options) => {
+    if (options.total_retry_time > 1000 * 60 * 60) {
+      // The connection is never going to get up again
+      // kill the client with the error event
+      return new Error('Retry time exhausted');
+    }
+    // attempt reconnect after this delay
+    return Math.min(options.attempt * 100, 3000)
+  }
+```
 
 ## 7. Istio
 
