@@ -42,7 +42,7 @@ Then you have to run redis to provide database (exclusively on Linux) :
 
 ```bash
 $ sudo apt update
-$ sudo pat install redis-server
+$ sudo apt install redis-server
 ```
 
 Then you can choose which command to run :
@@ -389,15 +389,11 @@ retry_strategy: (options) => {
 ## 7. Istio
 In this part we are going to use Istio in order to create a service mesh in our application. The goal of this cloud native is to create links between our microservices. It provides an uniform method to secure, connect and monitor these microservices.
 
-Here we were suppose to deploy to create route requesting (route dynamically to multiple versions of a microservice, for us it is between different versions of our application), and also traffic shifting in order to choose the weights of the migration from one microservice to another (from an older version to a new one). 
+Here we were suppose to create route requesting (route dynamically to multiple versions of a microservice, for us it is between different versions of our application), and also traffic shifting in order to choose the weights of the migration from one microservice to another (from an older version to a new one). 
 Thanks to these functionnalities we can manage all the traffic between the application's microservices. 
 
-First the installation is the following:
-
-Then apply the different files needed with these commands (service.yaml, gateway.yaml, destination.yaml, virtualservice.yaml)
-
-* service.yaml able us to deploy 2 versions of our application and the services. It also procure the proxy to every microservice. These proxys enable the communication between microservices. 
-* gateway.yaml is the link between HTTP and TCP connections, it is th edge of the mesh receiving incoming and outgoing connections.
+* service.yaml enable us to deploy 2 versions of our application and the services. It also procures the proxy to every microservice. These proxys enable the communication between microservices. 
+* gateway.yaml is the link between HTTP and TCP connections, it is the edge of the mesh receiving incoming and outgoing connections.
 * destination.yaml is the file which configure the DestinationRule. It defines policies after routing on the traffic. 
 * virtualservice.yaml defines the traffic routes, their destination and the weight we manage for them. Every route defines matching criteria for traffic and protocol and it uses the gateway.
 
@@ -417,7 +413,7 @@ Then execute the others files (gateway.yaml, destination.yaml and virtualservice
  
 ![268730936_654548319243530_6989756973918294625_n](images/istio-images/268730936_654548319243530_6989756973918294625_n.png)
 
-Unfortunetly, we have 2 unresolved error on our istio configuration, so we can't see any traffic between our microservices. 
+Unfortunetly, we have 2 unresolved errors on our istio configuration, so we can't see any traffic between our microservices. 
 
 ![269741483_482573003199774_2170813438150930794_n](images/istio-images/269741483_482573003199774_2170813438150930794_n.png)
 ![269138431_433523121830956_6134966413970706436_n](images/istio-images/269138431_433523121830956_6134966413970706436_n.png)
