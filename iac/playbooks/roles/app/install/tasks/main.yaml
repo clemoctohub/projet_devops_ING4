@@ -4,10 +4,10 @@
   args:
     chdir: /srv/website
 
-- name: "Install forever (to run Node.js app)."
+- name: Install forever (to run Node.js app).
   npm: name=forever global=yes state=present
 
-- name: "Check list of Node.js apps running."
+- name: Check list of Node.js apps running.
   command: forever list
   register: forever_list
   changed_when: false

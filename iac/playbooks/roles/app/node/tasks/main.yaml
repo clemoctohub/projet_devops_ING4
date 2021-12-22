@@ -18,5 +18,5 @@
   become: true
   shell: npm install -g n
 
-- name: 'Upgrade npm'
+- name: "Upgrade npm"
   shell: npm install -g npm@8.3.0 
