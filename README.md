@@ -396,5 +396,29 @@ First the installation is the following:
 
 Then apply the different files needed with these commands (service.yaml, gateway.yaml, destination.yaml, virtualservice.yaml)
 
-* service.yaml able us to deploy 2 versions of our application and the services 
-* gateway.yaml is the link between 
+* service.yaml able us to deploy 2 versions of our application and the services. It also procure the proxy to every microservice. These proxys enable the communication between microservices. 
+* gateway.yaml is the link between HTTP and TCP connections, it is th edge of the mesh receiving incoming and outgoing connections.
+* destination.yaml is the file which configure the DestinationRule. It defines policies after routing on the traffic. 
+* virtualservice.yaml defines the traffic routes, their destination and the weight we manage for them. Every route defines matching criteria for traffic and protocol and it uses the gateway.
+
+All of those files enable us to deploy, create route request and traffic shifting.
+
+After deploying minikube and kubernetes cluster, installing istio, execute this command to deploy the service.yaml.
+![268783075_1359088671189677_3662084648166666984_n](images/istio-images/268783075_1359088671189677_3662084648166666984_n.png)
+
+Then execute the others files (gateway.yaml, destination.yaml and virtualservice.yaml) with the same syntax as this command: 
+![269035362_311599477542871_7028688056153360169_n](images/istio-images/269035362_311599477542871_7028688056153360169_n.png)
+ 
+ Finally find the INGRESS_PORT and INGRESS_HOST to deply the application on the browser.
+ ![268730936_950529142241650_5634128714159581336_n](images/istio-images/268730936_950529142241650_5634128714159581336_n.png)
+![268502275_302810361760023_6049268079251848632_n](images/istio-images/268502275_302810361760023_6049268079251848632_n.png)
+ 
+ Then you can deploy Kiali to the the traffic shifting, the route requesting and the communication between microservices on a graph.
+ 
+![268730936_654548319243530_6989756973918294625_n](images/istio-images/268730936_654548319243530_6989756973918294625_n.png)
+
+Unfortunetly, we have 2 unresolved error on our istio configuration, so we can't see any traffic between our microservices. 
+
+![269741483_482573003199774_2170813438150930794_n](images/istio-images/269741483_482573003199774_2170813438150930794_n.png)
+![269138431_433523121830956_6134966413970706436_n](images/istio-images/269138431_433523121830956_6134966413970706436_n.png)
+
