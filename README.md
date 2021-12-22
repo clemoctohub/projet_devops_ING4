@@ -387,4 +387,14 @@ retry_strategy: (options) => {
 ```
 
 ## 7. Istio
+In this part we are going to use Istio in order to create a service mesh in our application. The goal of this cloud native is to create links between our microservices. It provides an uniform method to secure, connect and monitor these microservices.
 
+Here we were suppose to deploy to create route requesting (route dynamically to multiple versions of a microservice, for us it is between different versions of our application), and also traffic shifting in order to choose the weights of the migration from one microservice to another (from an older version to a new one). 
+Thanks to these functionnalities we can manage all the traffic between the application's microservices. 
+
+First the installation is the following:
+
+Then apply the different files needed with these commands (service.yaml, gateway.yaml, destination.yaml, virtualservice.yaml)
+
+* service.yaml able us to deploy 2 versions of our application and the services 
+* gateway.yaml is the link between 
