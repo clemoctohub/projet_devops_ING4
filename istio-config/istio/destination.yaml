@@ -2,9 +2,8 @@ apiVersion: networking.istio.io/v1alpha3
 kind: DestinationRule
 metadata:
   name: devops-destination
-  namespace: my-app
 spec:
-  host: project-devops-deployment
+  host: project-devops
   subsets:
   - name: v1
     labels:

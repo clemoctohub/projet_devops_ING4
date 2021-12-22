@@ -1,8 +1,7 @@
 apiVersion: networking.istio.io/v1alpha3
 kind: VirtualService
 metadata:
-  name: project-devops-deployment
-  namespace: my-app
+  name: project-devops
 spec:
   hosts:
   - "*"
@@ -12,13 +11,13 @@ spec:
   - route:
     - destination:
         subset: v1
-        host: project-devops-deployment
+        host: project-devops
         port:
-          number: 443
+          number: 3000
       weight: 50
     - destination:
         subset: v2
-        host: project-devops-deployment
+        host: project-devops
         port:
-          number: 443
+          number: 3000
       weight: 50
