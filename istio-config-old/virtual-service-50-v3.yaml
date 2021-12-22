@@ -4,14 +4,14 @@ metadata:
   name: project-devops
 spec:
   hosts:
-    - project-devops-app
+    - project-devops
   tcp:
   - route:
     - destination:
-        host: project-devops-app
+        host: project-devops
         subset: v1
       weight: 50
     - destination:
-        host: project-devops-app
-        subset: v3
+        host: project-devops
+        subset: v2
       weight: 50

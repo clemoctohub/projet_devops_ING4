@@ -4,9 +4,14 @@ metadata:
   name: project-devops
 spec:
   hosts:
-    - project-devops-app
-  http:
-  - route:
+  - "*"
+  gateways:
+  - project-devops-gateway
+  tcp:
+  - match:
+    - port: 3000
+    route:
     - destination:
         host: project-devops-app
-        subset: v3
+        subset: v2
+    

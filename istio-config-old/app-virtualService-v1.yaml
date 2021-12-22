@@ -12,5 +12,5 @@ spec:
     - port: 3000
     route:
     - destination:
-        host: project-devops-app
+        host: "5000"
         subset: v1
