@@ -2,9 +2,9 @@ name: Github CI/CD
 
 on:
   push:
-    branches: [ Clement ]
+    branches: [ Clement, main, Anne-Charlotte ]
   pull_request:
-    branches: [ Clement ]
+    branches: [ Clement, main, Anne-Charlotte ]
 
 jobs:
   test:

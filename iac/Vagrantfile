@@ -1,13 +1,6 @@
 # -*- mode: ruby -*-
 # vi: set ft=ruby :
 
-$script = <<-SHELL
-sudo apt-get update
-sudo apt-get install software-properties-common
-sudo apt-add-repository --yes --update ppa:ansible/ansible
-sudo apt-get install ansible --yes
-SHELL
-
 Vagrant.configure("2") do |config|
 
   # Do not pay attention to this parameter
