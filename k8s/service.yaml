@@ -13,6 +13,7 @@ spec:
     metadata:
       labels:
         app: project-devops
+        version: v1
     spec:
       containers:
         - name: project-devops
@@ -24,6 +25,29 @@ spec:
               value: "redis"
             - name: REDIS_PORT
               value: "6379"
+---
+apiVersion: apps/v1 
+kind: Deployment
+metadata:
+  name: project-devops-deployment
+  labels:
+    app: project-devops
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: project-devops
+  template:
+    metadata:
+      labels:
+        app: project-devops
+        version: v2
+    spec:
+      containers:
+        - name: project-devops
+          image: redseahorse/projet-devops-testv2
+          ports:
+            - containerPort: 3000
 ---
 apiVersion: v1
 kind: Service
@@ -38,3 +62,6 @@ spec:
       port: 3000
       targetPort: 3000
       nodePort: 30000
+      
+
+     
