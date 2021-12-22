@@ -146,7 +146,7 @@ $ code .
 
 The first test are the application test, this is the continuous integration part.
 
-![image-20211222104312442](C:\Users\clemf\AppData\Roaming\Typora\typora-user-images\image-20211222104312442.png)
+![image-20211222104312442](images/image-20211222104312442.png)
 
 First the application initialize containers then it installs the necessary tools (eg. Nodejs) and it run the tests and give a check if everything was ok.
 
@@ -154,7 +154,7 @@ Then, once the tests and everything are working correctly, we can deploy our app
 
 Here are the results for automatic deployment on Heroku :
 
-![image-20211222104551201](C:\Users\clemf\AppData\Roaming\Typora\typora-user-images\image-20211222104551201.png)
+![image-20211222104551201](images/image-20211222104551201.png)
 
 We had to add a Heroku key and put it in the access keys of our repository so the connection is secure between Github and Heroku but it also links my Heroku account to the Github repository.
 
@@ -262,7 +262,7 @@ ubuntu_server              : ok=14   changed=10   unreachable=0    failed=0    s
 
 *Note: Result was too long for screenshot*
 
-![img](https://cdn.discordapp.com/attachments/911549366450417696/923160372129726484/unknown.png)
+![img](images/vagrant.png)
 
 Vagrant ssh, show that app is running and node and npm also.
 
@@ -293,7 +293,7 @@ Our image is accessible under the name **redseahorse/projet-devops-test** or you
 
 After running the container :
 
-![image-20211222115911815](C:\Users\clemf\AppData\Roaming\Typora\typora-user-images\image-20211222115911815.png)
+![image-20211222115911815](images/image-20211222115911815.png)
 
 After creating our container, we need to orchestrate it with redis container so the app run correctly.
 
@@ -323,17 +323,17 @@ $ docker-compose down
 
 Here are the results :
 
-![image-20211222143154847](C:\Users\clemf\AppData\Roaming\Typora\typora-user-images\image-20211222143154847.png)
+![image-20211222143154847](images/image-20211222143154847.png)
 
 *In the console*
 
-![image-20211222143217309](C:\Users\clemf\AppData\Roaming\Typora\typora-user-images\image-20211222143217309.png)
+![image-20211222143217309](images/image-20211222143217309.png)
 
 *On the web*
 
 If we refresh the page, the variable increments because data is stored.
 
-![image-20211222143554677](C:\Users\clemf\AppData\Roaming\Typora\typora-user-images\image-20211222143554677.png)
+![image-20211222143554677](images/image-20211222143554677.png)
 
 ## 6. Kubernetes
 
@@ -366,11 +366,11 @@ $ kubectl apply -f service.yaml
 
 Once done, we have the following results :
 
-![unknown.png (1338×145)](https://cdn.discordapp.com/attachments/703532874997170256/922819679544823838/unknown.png)
+![unknown.png (1338×145)](images/volume.png)
 
 *Persistent volume and persistent volume claim linked*.
 
-![image-20211222153349579](C:\Users\clemf\AppData\Roaming\Typora\typora-user-images\image-20211222153349579.png)
+![image-20211222153349579](images/image-20211222153349579.png)
 
 *Get logs of pods to see if there are running correctly.*
 
