@@ -56,9 +56,13 @@ $ npm start
 $ npm test
 ```
 
-Then you can see this in your terminal if you run the app :
+Then you can see this in your terminal if you run the app in the console :
 
 ![image-20211222101217677](C:\Users\clemf\AppData\Roaming\Typora\typora-user-images\image-20211222101217677.png)
+
+On the web :
+
+![image-20211222121454809](C:\Users\clemf\AppData\Roaming\Typora\typora-user-images\image-20211222121454809.png)
 
 Or this if you test it :
 
@@ -264,9 +268,41 @@ Vagrant ssh, show that app is running and node and npm also.
 
 ## 4. Docker
 
+In this step, we are going to containerize our application to make it run on different environment. We will use Docker to do so.
+
+We created a Dockerfile where we first install the packages (after copying package.json) and then we copy only the userapi folder and run npm start so our app is running in the container and expose it on the port we wrote. We also created a .*dockerignore* file to ignore the file and folders in the *userapi* folder we don't want to put in our container.
+
+Here is how we build and ran our container :
+
+```bash
+# build container
+$ docker build -t projet-devops-test .
+# run our container
+$ docker run -p 3000:3000 projet-devops-test
+
+# then if everything ok we can push docker on repository
+# tag container
+$ docker tag projet-devops-test redseahorse/projet-devops-test
+# login
+$ docker login
+# push image
+$ docker push redseahorse/projet-devops-test
+```
+
+Our image is accessible under the name **redseahorse/projet-devops-test** or you can see it on this link : [redseahorse/projet-devops-test](https://hub.docker.com/repository/docker/redseahorse/projet-devops-test)
+
+After running the container :
+
+![image-20211222115911815](C:\Users\clemf\AppData\Roaming\Typora\typora-user-images\image-20211222115911815.png)
+
 
 
 ## 5. Docker Compose
+
+- change host 
+- return strategy
+- healthy check
+- env var
 
 ## 6. Kubernetes
 
