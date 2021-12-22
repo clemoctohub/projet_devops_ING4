@@ -58,11 +58,11 @@ $ npm test
 
 Then you can see this in your terminal if you run the app in the console :
 
-![image-20211222101217677](C:\Users\clemf\AppData\Roaming\Typora\typora-user-images\image-20211222101217677.png)
+![image-20211222101217677](images/image-20211222101217677.png)
 
 On the web :
 
-![image-20211222121454809](C:\Users\clemf\AppData\Roaming\Typora\typora-user-images\image-20211222121454809.png)
+![image-20211222121454809](images/image-20211222121454809.png)
 
 Or this if you test it :
 
