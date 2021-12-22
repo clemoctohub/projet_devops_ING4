@@ -175,6 +175,7 @@ We installed the following resources :
 - Redis
 - Node
 - Npm
+- Curl
 
 Once these packages are installed, we installed the packages to run our application using *npm install*. We also installed *forever* to run *npm start* otherwise the task is blocked at this point.
 
